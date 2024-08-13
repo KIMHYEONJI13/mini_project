@@ -2,4 +2,5 @@
 
 ## first project
 
-1.  부트스트랩을 활용한 네일샵(정보전달용)
+1. Spring Data JPA + React 를 활용한 메모장 만들기
+
