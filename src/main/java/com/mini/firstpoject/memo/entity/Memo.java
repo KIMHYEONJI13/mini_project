@@ -15,6 +15,9 @@ public class Memo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int memoNo;
 
+    @Column(name = "memo_fix")
+    private char memoFix;
+
     @Column(name = "memo_title", nullable = true, length = 150)
     private String memoTitle;
 
@@ -27,18 +30,24 @@ public class Memo {
     @Column(name = "memo_update_dttm")
     private Timestamp memoUpdateDttm;
 
-    @Column(name = "delete_meno", columnDefinition = "N")
+    @Column(name = "delete_meno")
     private boolean deleteMemo;
 
     protected Memo() {}
 
-    public Memo(int memoNo, String memoTitle, String memoContent, Timestamp memoCreateDttm, Timestamp memoUpdateDttm, boolean deleteMemo) {
+    public Memo(int memoNo, char memoFix, String memoTitle, String memoContent, Timestamp memoCreateDttm, Timestamp memoUpdateDttm, boolean deleteMemo) {
         this.memoNo = memoNo;
+        this.memoFix = memoFix;
         this.memoTitle = memoTitle;
         this.memoContent = memoContent;
         this.memoCreateDttm = memoCreateDttm;
         this.memoUpdateDttm = memoUpdateDttm;
         this.deleteMemo = deleteMemo;
+    }
+
+    public Memo memoFix(char val) {
+        this.memoFix = val;
+        return this;
     }
 
     public Memo memoTitle(String val) {
@@ -66,6 +75,8 @@ public class Memo {
         return memoNo;
     }
 
+    public char getMemoFix() { return memoFix; }
+
     public String getMemoTitle() {
         return memoTitle;
     }
@@ -89,7 +100,8 @@ public class Memo {
     @Override
     public String toString() {
         return "Memo{" +
-                "memoNo=" + memoNo +
+                "memoNo=" + memoNo + '\'' +
+                ", memoFix='" + memoFix + '\'' +
                 ", memoTitle='" + memoTitle + '\'' +
                 ", memoContent='" + memoContent + '\'' +
                 ", memoCreateDttm=" + memoCreateDttm +
