@@ -1,0 +1,17 @@
+### 메모조회
+GET http://localhost:8080/memos
+
+### 메모조회(제목검색)
+GET http://localhost:8080/memos?title=
+
+### 메모상세조회
+GET http://localhost:8080/memos/1
+
+### 메모등록
+POST http://localhost:8080/memos
+
+### 메모수정
+PUT http://localhost:8080/memos/1
+
+### 메모삭제
+DELETE http://localhost:8080/memos/1
