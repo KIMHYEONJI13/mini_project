@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MemoServiceTests {
@@ -68,7 +70,30 @@ public class MemoServiceTests {
         Assertions.assertNotNull(memoDTO);
     }
 
+    @DisplayName("메모수정")
+    @Test
+    void updateMemo() {
 
+        int memoNo = 1;
 
+        MemoDTO memoInfo = new MemoDTO();
+        memoInfo.setMemoTitle("메모수정");
+        memoInfo.setMemoContent("메모내용수정");
+        memoInfo.setMemoFix('N');
 
+        Assertions.assertDoesNotThrow(
+                () -> memoService.updateMemo(memoInfo)
+        );
+    }
+
+    @DisplayName("메모삭제")
+    @Test
+    void deleteMemo() {
+
+        int memoNo = 1;
+
+        memoService.deleteMemo(memoNo);
+
+        assertFalse(memoRepository.existsById(memoNo));
+    }
 }

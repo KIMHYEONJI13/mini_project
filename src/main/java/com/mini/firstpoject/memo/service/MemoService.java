@@ -14,8 +14,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -91,9 +89,39 @@ public class MemoService {
     }
 
     /* 메모 수정 */
+    @Transactional
+    public Object updateMemo(MemoDTO memoInfo) {
+        try {
+            memoInfo.setMemoUpdateDttm(new Timestamp(System.currentTimeMillis()));
 
+            Memo memo = modelMapper.map(memoInfo, Memo.class);
+            Memo updatedMemo = memoRepository.save(memo);
+            log.info("~~~~~ 메모 수정 성공 ~~~~~");
+
+            return updatedMemo.getMemoNo();
+        } catch (Exception e) {
+            log.error("메모 수정 실패: {}", e.getMessage(), e);
+            return null;
+        }
+    }
 
     /* 메모 삭제 */
+    @Transactional
+    public void deleteMemo(int memoNo) {
+        try {
+            Memo memo = memoRepository.findById(memoNo).orElseThrow(IllegalAccessError::new);
 
+            memo.deleteMemo(true);
+
+            memoRepository.save(memo);
+
+        } catch (IllegalArgumentException e) {
+            log.error("메모 삭제 실패: {}", e.getMessage(), e);
+            throw e;
+        } catch (Exception e) {
+            log.error("메모 삭제 실패: {}", e.getMessage(), e);
+            throw new RuntimeException("메모 삭제 중 오류가 발생했습니다.", e);
+        }
+    }
 
 }
