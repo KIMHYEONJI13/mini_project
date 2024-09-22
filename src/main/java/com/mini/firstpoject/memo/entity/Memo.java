@@ -30,7 +30,7 @@ public class Memo {
     @Column(name = "memo_update_dttm")
     private Timestamp memoUpdateDttm;
 
-    @Column(name = "delete_meno")
+    @Column(name = "delete_memo")
     private boolean deleteMemo;
 
     protected Memo() {}
@@ -70,6 +70,10 @@ public class Memo {
         return this;
     }
 
+    public Memo deleteMemo(boolean val) {
+        this.deleteMemo = val;
+        return this;
+    }
 
     public int getMemoNo() {
         return memoNo;
