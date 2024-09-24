@@ -34,8 +34,55 @@ public class MemoControllerTests {
         mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andDo(print());
-
     }
 
+    @DisplayName("메모목록조회")
+    @Test
+    void selectMemoList() throws Exception {
+
+        String search = "";
+
+        request = MockMvcRequestBuilders.get("/memos?search=" + search);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("메모상세조회")
+    @Test
+    void selectMemoDetail() throws Exception {
+        int memoNo = 1;
+
+        request = MockMvcRequestBuilders.get("/memos/" + memoNo);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("메모수정")
+    @Test
+    void updateMemo() throws Exception {
+        int memoNo = 1;
+        String updateMemo = "{\"action\": \"수정\", \"refusal\": \"수정제목\"}";
+
+        request = MockMvcRequestBuilders.put("/memos/" + memoNo)
+                .contentType(updateMemo);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("메모삭제")
+    @Test
+    void deleteMemo() throws Exception {
+        int memoNo = 1;
+
+        request = MockMvcRequestBuilders.delete("/memos/" + memoNo);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 
 }
